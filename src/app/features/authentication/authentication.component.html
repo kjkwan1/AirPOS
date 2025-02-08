@@ -1,0 +1,13 @@
+<div class="auth">
+    <form [formGroup]="formGroup" class="form">
+        <div class="input">
+            <label for="username">email</label>
+            <input type="text" formControlName="username" name="username">
+        </div>
+        <div class="input">
+            <label for="password">password</label>
+            <input type="text" formControlName="password" name="password">
+        </div>
+        <input class="submit" type="submit" (click)="submit()" [disabled]="!formGroup.valid">
+    </form>
+</div>

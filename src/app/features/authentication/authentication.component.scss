@@ -1,0 +1,74 @@
+@import 'styles';
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 80%;
+    border-radius: var(--border-radius-base);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+}
+
+.auth {
+    width: 75%;
+}
+
+input {
+    height: 32px;
+    border: none;
+    margin: 8px 0;
+    border-radius: var(--border-radius-base);
+    background-color: var(--color-divider);
+    color: var(--color-text-primary);
+    outline: none;
+
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0 8px;
+
+    &.ng-invalid {
+        border-bottom: 2px solid var(--color-warning)
+    }
+
+    &.ng-valid:not(:focus) {
+        border-bottom: 2px solid var(--color-success);
+    }
+
+    &:focus:not(.ng-invalid) {
+        border-bottom: 2px solid var(--color-primary);
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    label {
+        width: 60%;
+    }
+}
+
+.submit {
+    width: 128px;
+    align-self: flex-end;
+
+    &:disabled {
+        pointer-events: none;
+        background-color: var(--color-text-tertiary);
+        border-bottom: 2px solid var(--color-warning);
+    }
+
+    &.ng-valid.ng-touched {
+        border: 1px solid red;
+    }
+}

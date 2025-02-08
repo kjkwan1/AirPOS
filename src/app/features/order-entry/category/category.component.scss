@@ -1,0 +1,11 @@
+.category {
+    &__items {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    &__name {
+        color: var(--color-text-primary);
+    }
+}

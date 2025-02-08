@@ -1,0 +1,24 @@
+<div class="toggle-wrapper"
+    [class.toggle-wrapper--disabled]="disabled"
+    [class.toggle-wrapper--sm]="size === 'sm'"
+    [class.toggle-wrapper--lg]="size === 'lg'">
+
+    <button
+        type="button"
+        role="switch" [id]="id"
+        [attr.aria-checked]="state()"
+        [attr.aria-label]="label || 'Toggle'"
+        [disabled]="disabled" (click)="onClick()"
+        (keydown)="onKeyDown($event)" class="toggle"
+        [class.toggle--active]="state()"
+        [class.toggle--disabled]="disabled">
+
+        <div class="toggle__track">
+            <div class="toggle__thumb"></div>
+        </div>
+
+        @if (label) {
+        <span class="toggle__label">{{ label }}</span>
+        }
+    </button>
+</div>

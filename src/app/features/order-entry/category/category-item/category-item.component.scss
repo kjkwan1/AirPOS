@@ -1,0 +1,24 @@
+@import 'styles';
+
+.category-item {
+    --item-dimension: 82px;
+    height: var(--item-dimension);
+    width: var(--item-dimension);
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    word-break: keep-all;
+    border-radius: var(--border-radius-base);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4px;
+    transition: var(--transition-base);
+
+    &:hover, &:active {
+        transform: scale(1.08)
+    }
+}

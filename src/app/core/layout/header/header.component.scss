@@ -1,0 +1,13 @@
+@import 'styles';
+
+:host {
+    height: $header-height;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 8px;
+}

@@ -1,0 +1,79 @@
+@import 'styles';
+
+.toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
+
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &--sm .toggle {
+        --toggle-width: 36px;
+        --toggle-height: 20px;
+        --thumb-size: 16px;
+    }
+
+    &--lg .toggle {
+        --toggle-width: 60px;
+        --toggle-height: 32px;
+        --thumb-size: 28px;
+    }
+}
+
+.toggle {
+    --toggle-width: 48px;
+    --toggle-height: 26px;
+    --thumb-size: 22px;
+    --thumb-padding: 2px;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: map-get($spacings, 2);
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-radius: map-get($border-radius, 'full');
+    }
+
+    &--disabled {
+        cursor: not-allowed;
+    }
+
+    &__track {
+        position: relative;
+        width: var(--toggle-width);
+        height: var(--toggle-height);
+        border-radius: calc(var(--toggle-height) / 2);
+        transition: background-color 0.2s ease-in-out;
+        background-color: var(--color-primary);
+    }
+
+    &__thumb {
+        position: absolute;
+        top: var(--thumb-padding);
+        left: var(--thumb-padding);
+        width: var(--thumb-size);
+        height: var(--thumb-size);
+        border-radius: 50%;
+        background-color: white;
+        transition: transform 0.2s ease-in-out;
+
+        .toggle--active & {
+            transform: translateX(calc(var(--toggle-width) - var(--thumb-size) - (var(--thumb-padding) * 2)));
+        }
+    }
+
+    &__label {
+        font-size: map-get($font-sizes, 'base');
+        color: var(--color-text-primary);
+        user-select: none;
+    }
+}

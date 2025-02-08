@@ -1,0 +1,8 @@
+<div class="category">
+    <h5 class="category__name">{{ category.name }}</h5>
+    <div class="category__items">
+        @for (item of category.items; track item.id) {
+            <app-category-item [item]="item"></app-category-item>
+        }
+    </div>
+</div>
