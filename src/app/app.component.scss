@@ -10,7 +10,8 @@
 }
 
 #app {
-    background: linear-gradient(45deg, var(--color-background), 85%, var(--color-surface) 100%);
+    background-color: var(--color-background);
+    transition: var(--transition-base);
     overflow-y: scroll;
     padding: 0 1em;
 }

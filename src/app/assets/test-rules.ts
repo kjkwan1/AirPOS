@@ -66,12 +66,11 @@ const testRules: Rule[] = [
         },
         options: [{
             allowSubstitutions: true,
-            substitutionGroups: [
-                {
-                    groupId: 'PROTEIN',
-                    itemIds: ['CHICKEN', 'BEEF', 'FISH', 'TOFU']
-                }
-            ]
+            substitutionGroups: {
+                groupId: 'PROTEIN',
+                itemIds: ['CHICKEN', 'BEEF', 'FISH', 'TOFU']
+            }
+
         }],
         message: 'Create a valid meal combination'
     } as CombinationRule,

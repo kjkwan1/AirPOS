@@ -4,6 +4,8 @@
     display: block;
     height: $footer-height;
     color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    transition: var(--transition-base);
 }
 
 footer {

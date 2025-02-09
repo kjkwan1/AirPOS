@@ -16,7 +16,6 @@ export class MenuService {
   private initialized$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
-    // Handle worker responses
     this.worker.onmessage = ({ data }: MessageEvent<RelationParserResponse>) => {
       switch (data.type) {
         case 'MENU_READY':
@@ -27,7 +26,7 @@ export class MenuService {
           this.menuState$.next(
             map(this.menuState$.value, (menu) => ({
               ...menu,
-              categories: menu.map((category) =>
+              categories: menu.categories.map((category) =>
                 category.id === data.category.id ? data.category : category
               )
             }))
@@ -44,9 +43,6 @@ export class MenuService {
     };
   }
 
-  /**
-   * Initialize the menu with initial data
-   */
   initializeMenu(data: InitialData): Promise<void> {
     const message: RelationParserMessage = {
       type: 'INIT_MENU',
@@ -59,9 +55,6 @@ export class MenuService {
     ))
   }
 
-  /**
-   * Update a category in the menu
-   */
   updateCategory(update: MenuUpdate): void {
     const message: RelationParserMessage = {
       type: 'UPDATE_MENU',
@@ -71,25 +64,16 @@ export class MenuService {
     this.updates$.next(update);
   }
 
-  /**
-   * Get the current menu state as an observable
-   */
   getMenu(): Observable<Result<string, Menu>> {
     return this.menuState$.asObservable().pipe(
       shareReplay(1)
     );
   }
 
-  /**
-   * Get updates stream as an observable
-   */
   getUpdates(): Observable<MenuUpdate> {
     return this.updates$.asObservable();
   }
 
-  /**
-   * Clean up resources when service is destroyed
-   */
   ngOnDestroy() {
     this.worker.terminate();
     this.updates$.complete();

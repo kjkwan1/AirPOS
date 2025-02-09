@@ -3,6 +3,7 @@ import { Category, Menu } from "@features/order-entry/menu/menu.model";
 import { Result } from "@shared/types/functional.type";
 import { ChildItem, Item } from "@shared/types/item.model";
 import { Modifier } from "@shared/types/modifier.model";
+import { Rule } from "@shared/types/rule.model";
 
 export type RelationParserMessage = 
     | { type: 'INIT_MENU', payload: InitialData }
@@ -14,9 +15,10 @@ export type RelationParserResponse =
     | { type: 'ERROR', error: Result<string, never> };
 
 export interface InitialData {
-    items: Item[];
-    childItems: ChildItem[];
-    modifiers: Modifier[];
+    items: Array<Item>;
+    childItems: Array<ChildItem>;
+    modifiers: Array<Modifier>;
+    rules: Array<Rule>;
     menu: MenuRelation;
 }
 

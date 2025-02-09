@@ -2,12 +2,34 @@
 
 :host {
     height: $header-height;
+    display: block;
+    background-color: var(--color-surface);
+    transition: var(--transition-base);
 }
 
 header {
+    height: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
-    justify-content: flex-end;
-    padding: 8px;
+    justify-content: space-between;
+    padding: 12px 20px;
+    box-shadow: 0 4px 6px var(--shadow);
+    border-radius: 8px;
+
+    app-toggle {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    app-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    app-icon-button {
+        transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    app-icon-button:hover {
+        background: var(--secondary-light);
+        transform: scale(1.1);
+    }
 }

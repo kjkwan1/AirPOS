@@ -1,0 +1,19 @@
+<div class="container" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+        <div class="modal__header">
+            <h2 id="modalTitle">{{ config.params.title }}</h2>
+            <div class="modal__header--buttons">
+                @for (btn of config.params.headerButtons; track $index) {
+                    <button [ngClass]="[btn.cssClass, 'modal__header--button']" (click)="btn.action()">
+                        {{ btn.label }}
+                    </button>
+                }
+                <button class="modal__header--button" (click)="close()">X</button>
+            </div>
+        </div>
+        <div class="modal__body">
+            <ng-container *ngComponentOutlet="component; injector: modalInjector; 
+                                ngComponentOutletCreated: onComponentLoaded"></ng-container>
+        </div>
+    </div>
+</div>

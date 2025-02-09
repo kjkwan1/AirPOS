@@ -1,8 +1,11 @@
 <div class="menu">
     @if (menu$ | async; as menu) {
-        @if (menu.length) {
-            @for (category of menu; track category.id) {
-                <app-category [category]="category"></app-category>
+        @if (menu.categories.length) {
+            @for (category of menu.categories; track category.id) {
+                <app-category [category]="category"
+                    (itemPreviewed)="onPreview($event)"
+                    (itemSelected)="onSelected($event)"
+                ></app-category>
             }
         }
     }

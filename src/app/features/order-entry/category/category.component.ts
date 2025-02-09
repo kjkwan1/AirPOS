@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../menu/menu.model';
 import { CategoryItemComponent } from './category-item/category-item.component';
+import { OrderItem } from '@shared/types/order.model';
 
 @Component({
   selector: 'app-category',
@@ -12,4 +13,6 @@ import { CategoryItemComponent } from './category-item/category-item.component';
 })
 export class CategoryComponent {
   @Input({ required: true }) category!: Category;
+  @Output() itemPreviewed = new EventEmitter<OrderItem>();
+  @Output() itemSelected = new EventEmitter<OrderItem>();
 }

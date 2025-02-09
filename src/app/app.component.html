@@ -9,3 +9,7 @@
 @if (isAuthenticated$ | async) {
     <app-footer></app-footer>
 }
+
+@if (isOpen()) {
+    <app-modal></app-modal>
+}

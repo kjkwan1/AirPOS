@@ -1,5 +1,5 @@
-import { from, Observable, of } from 'rxjs';
-import { catchError, map as rxMap } from 'rxjs/operators';
+import { combineLatest, Observable, of, OperatorFunction } from 'rxjs';
+import { catchError, filter, map as rxMap, tap } from 'rxjs/operators';
 
 export type Result<E, A> = { type: 'ok'; value: A } | { type: 'error'; error: E };
 
@@ -37,10 +37,10 @@ export const mapError = <E, F, A>(
     r: Result<E, A>,
     f: (e: E) => F
 ): Result<F, A> =>
-    r.type === 'error' ? error(f(r.error)): r;
+    r.type === 'error' ? error(f(r.error)) : r;
 
 export const getOrElse = <E, A>(r: Result<E, A>, defaultValue: A): A =>
-    r.type === 'ok'? r.value : defaultValue;
+    r.type === 'ok' ? r.value : defaultValue;
 
 export const orElse = <E, A>(
     r: Result<E, A>,
@@ -56,19 +56,65 @@ export const tryCatch = <A>(fn: () => A): Result<unknown, A> => {
     }
 }
 
-// interop
+// rxjs interop
 
-export const resultMap = <E, A, B>(f: (a: A) => B) =>
-    rxMap((r: Result<E, A>): Result<E, B> => map(r, f));
+/**
+ * Extracts only successful values from Result<E, A>. 
+ */
+export const unwrapResult = <E, A>(): OperatorFunction<Result<E, A>, A> =>
+    rxMap(r => {
+        if (r.type === 'ok') return r.value;
+        throw r.error; // Preserves error handling without forcing an operator.
+    });
+/**
+ * Extracts values from Result<E, A>, but if it's an error, emits a fallback value instead of throwing.
+ */
+export const unwrapOr = <E, A>(fallback: A) => (obs$: Observable<Result<E, A>>): Observable<A> =>
+    obs$.pipe(rxMap(r => (r.type === 'ok' ? r.value : fallback)));
 
-export const asResult = <T>(source$: Observable<T>): Observable<Result<unknown, T>> =>
+/**
+ * Filters an Observable<Result<E, A>> to emit only successful values.
+ */
+export const filterOkOnly = <E, A>() => (obs$: Observable<Result<E, A>>): Observable<A> =>
+    obs$.pipe(filter((r) => r.type === 'ok'), rxMap((r) => (r as { type: 'ok', value: A }).value));
+
+/**
+ * Filters an Observable<Result<E, A>> to emit only error values.
+ */
+export const filterErrorOnly = <E, A>() => (obs$: Observable<Result<E, A>>): Observable<E> =>
+    obs$.pipe(filter((r) => r.type === 'error'), rxMap((r) => (r as { type: 'error', error: E }).error));
+
+/**
+ * Maps only successful values within an Observable<Result<E, A>>.
+ */
+export const mapOk = <E, A, B>(fn: (a: A) => B) => (obs$: Observable<Result<E, A>>): Observable<Result<E, B>> =>
+    obs$.pipe(rxMap(r => (r.type === 'ok' ? ok(fn(r.value)) : r)));
+
+/**
+ * Maps only error values within an Observable<Result<E, A>>, transforming the error type from E to F.
+ */
+export const mapErr = <E, A, F>(fn: (e: E) => F): OperatorFunction<Result<E, A>, Result<F, A>> =>
+    rxMap<Result<E, A>, Result<F, A>>(r =>
+        r.type === 'error' ? error(fn(r.error)) : (r as Result<F, A>)
+    );
+
+/**
+ * Converts an Observable<T> into an Observable<Result<unknown, T>>.
+ */
+export const toResult = <T>(source$: Observable<T>): Observable<Result<unknown, T>> =>
     source$.pipe(
-        rxMap((v) => ok(v)),
-        catchError((err) => of(error(err)))
+        rxMap(value => ok(value)),
+        catchError(error => of(error(error)))
     );
 
-export const fromPromiseResult = <T>(promise: Promise<T>): Observable<Result<unknown, T>> =>
-    from(promise).pipe(
-        rxMap((v) => ok(v)),
-        catchError((e) => of(error(e)))
-    );
+/**
+ * Triggers side effects on errors without modifying the Observable flow.
+ */
+export const tapError = <E, A>(fn: (e: E) => void) => (obs$: Observable<Result<E, A>>): Observable<Result<E, A>> =>
+    obs$.pipe(tap(r => r.type === 'error' && fn(r.error)));
+
+/**
+ * Merges multiple Observable<Result<E, A>> into a single Observable<Result<E, A[]>>.
+ */
+export const mergeResults = <E, A>(sources: Observable<Result<E, A>>[]): Observable<Result<E, A[]>> =>
+    combineLatest(sources).pipe(rxMap(sequence));

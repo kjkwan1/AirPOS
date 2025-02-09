@@ -1,3 +1,6 @@
-<div class="category-item bg-gradient-secondary shadow-md">
+<div class="category-item bg-gradient-secondary shadow-md"
+    tap
+    (doubleTap)="onDoubleTap()"
+    (singleTap)="onSingleTap()">
     <p class="text-truncate category-item__text">{{ item.name }}</p>
 </div>

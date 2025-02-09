@@ -10,7 +10,7 @@ import { IconButtonComponent } from "../../../shared/components/icon-button/icon
   imports: [ToggleComponent, IconButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   readonly cartIcon = faCartShopping;
