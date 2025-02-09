@@ -1,1 +1,18 @@
-<p>item-view works!</p>
+@if (props) {
+    <p>{{ props.item.name }}</p>
+
+    @if (props.item.childItems.length) {
+        <h6>Child Items</h6>
+        @for (item of props.item.childItems; track item.id) {
+            <p>{{ item.name }}</p>
+        }
+    }
+
+    @if (props.item.modifiers.length) {
+        <h6>Modifiers</h6>
+        @for (mod of props.item.modifiers; track mod.id) {
+            <p>{{ mod.name }}</p>
+        }
+    }
+}
+

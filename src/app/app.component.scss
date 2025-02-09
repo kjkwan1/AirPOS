@@ -13,6 +13,8 @@
     background-color: var(--color-background);
     transition: var(--transition-base);
     overflow-y: scroll;
+    scrollbar-color: var(--color-primary) var(--color-primary);
+    scrollbar-width: thin;
     padding: 0 1em;
 }
 

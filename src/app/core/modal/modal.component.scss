@@ -17,13 +17,16 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     background-color: var(--color-background);
     color: var(--color-text-primary);
+    height: 75%;
 
     &__header {
-        padding: 1rem;
-        border-bottom: 1px solid #eee;
+        padding: 0 1rem;
+        border-bottom: 1px solid var(--color-primary);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        font-size: var(--font-size-sm);
+        height: var(--header-height);
 
         &--buttons {
             display: flex;
@@ -34,10 +37,19 @@
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-sm);
+            background-color: var(--color-danger);
+            box-shadow: var(--shadow-sm);
         }
     }
 
     &__body {
         padding: 1rem;
+        height: inherit;
+        overflow-y: scroll;
+        scrollbar-color: var(--color-primary) var(--color-primary);
+        scrollbar-width: thin;
     }
 }

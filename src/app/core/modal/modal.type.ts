@@ -7,6 +7,7 @@ export interface ModalConfig<TProps = any> {
 
 export interface ModalParams {
     title?: string;
+    subtitle?: string;
     headerButtons?: ModalHeaderButton[];
 }
 
@@ -24,4 +25,5 @@ export interface ModalView<TProps = any> {
 export abstract class ModalViewAbstract<TProps = any> implements ModalView<TProps> {
     props!: TProps;
     close = new EventEmitter<any>();
+    params!: ModalParams;
 }

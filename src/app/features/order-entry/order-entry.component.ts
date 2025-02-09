@@ -57,7 +57,7 @@ export class OrderEntryComponent implements OnInit {
       },
       close: new EventEmitter(),
       params: {
-        title: item.name
+        title: 'Item',
       }
     })
   }

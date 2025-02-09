@@ -16,8 +16,4 @@ export class ItemViewComponent extends ModalViewAbstract {
   };
 
   @Input() override close: EventEmitter<any> = new EventEmitter();
-  @Input() params!: {
-    title: string;
-  }
-
 }
