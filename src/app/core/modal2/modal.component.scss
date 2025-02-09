@@ -1,0 +1,32 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__content {
+        border-radius: 4px;
+        width: 500px;
+        max-width: 90%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        background-color: var(--color-background);
+        color: var(--color-text-primary);
+    }
+}
+
+.sm {
+    height: 33%;
+}
+
+.md {
+    height: 50%;
+}
+
+.lg {
+    height: 75%;
+}

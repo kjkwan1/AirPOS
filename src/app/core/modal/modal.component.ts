@@ -6,6 +6,8 @@ import {
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ModalConfig, ModalView } from './modal.type';
 import { ModalService } from './modal.service';
@@ -18,36 +20,32 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalComponent<TProps = any> implements OnInit, OnDestroy {
-  @Input() component!: { new(...args: any[]): ModalView<TProps> };
+export class ModalComponent<TProps = any, TResult = any> implements OnInit, OnDestroy {
+  @Input() component!: { new(...args: any[]): ModalView<TProps, TResult> };
   @Input() config!: ModalConfig<TProps>;
+  @Output() closeModal = new EventEmitter<TResult>();
 
   modalInjector = Injector.NULL;
-
   private subscription = new Subscription();
+  private componentRef?: ComponentRef<ModalView<TProps, TResult>>;
 
   constructor(private modalService: ModalService, private injector: Injector) { }
 
   ngOnInit(): void {
     this.modalInjector = Injector.create({
-      providers: [{ provide: 'modalConfig', useValue: this.config }],
+      providers: [
+        { provide: 'modalConfig', useValue: this.config }
+      ],
       parent: this.injector,
     });
-  }
 
-  onComponentLoaded(componentRef: ComponentRef<ModalView<TProps>>): void {
-    if (componentRef.instance?.close) {
-      const sub = componentRef.instance.close.subscribe((result: any) => {
-        this.handleClose(result);
-      });
-      this.subscription.add(sub);
-    }
-  }
-
-  handleClose(result: any): void {
-    this.modalService.close(result);
+    this.subscription.add(
+      this.componentRef?.instance.close.subscribe((result: TResult) => {
+        this.closeModal.emit(result);
+      })
+    );
   }
 
   close(): void {

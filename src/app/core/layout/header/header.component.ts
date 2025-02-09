@@ -5,12 +5,12 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { IconButtonComponent } from "../../../shared/components/icon-button/icon-button.component";
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [ToggleComponent, IconButtonComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-header',
+    standalone: true,
+    imports: [ToggleComponent, IconButtonComponent],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   readonly cartIcon = faCartShopping;

@@ -1,17 +1,17 @@
-import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, signal, SimpleChanges, WritableSignal } from '@angular/core';
+import { CurrencyPipe, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { ModalViewAbstract } from '@core/modal/modal.type';
 import { OrderItem } from '@shared/types/order.model';
 
 type QuantitySignalMap = Record<string, WritableSignal<{ qty: number; price: number }>>
 
 @Component({
-  selector: 'app-item-view',
-  standalone: true,
-  imports: [CurrencyPipe],
-  templateUrl: './item-view.component.html',
-  styleUrl: './item-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-item-view',
+    standalone: true,
+    imports: [CurrencyPipe],
+    templateUrl: './item-view.component.html',
+    styleUrl: './item-view.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemViewComponent extends ModalViewAbstract {
   @Input() override props!: {

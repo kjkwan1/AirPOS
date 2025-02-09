@@ -4,12 +4,12 @@ import { CategoryItemComponent } from './category-item/category-item.component';
 import { OrderItem } from '@shared/types/order.model';
 
 @Component({
-  selector: 'app-category',
-  standalone: true,
-  imports: [CategoryItemComponent],
-  templateUrl: './category.component.html',
-  styleUrl: './category.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-category',
+    standalone: true,
+    imports: [CategoryItemComponent],
+    templateUrl: './category.component.html',
+    styleUrl: './category.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent {
   @Input({ required: true }) category!: Category;

@@ -4,12 +4,12 @@ import { AuthenticationService } from '@core/auth/authentication.service';
 import { NavigationService } from '@core/services/navigation.service';
 
 @Component({
-  selector: 'app-authentication',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
-  templateUrl: './authentication.component.html',
-  styleUrl: './authentication.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-authentication',
+    standalone: true,
+    imports: [ReactiveFormsModule, FormsModule],
+    templateUrl: './authentication.component.html',
+    styleUrl: './authentication.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthenticationComponent {
   constructor(

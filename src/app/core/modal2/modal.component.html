@@ -1,0 +1,5 @@
+<div class="modal" (click)="onBackgroundClick()">
+    <div class="modal__content" [ngClass]="config.size" (click)="$event.stopPropagation()">
+        <ng-container #modalContent></ng-container>
+    </div>
+</div>

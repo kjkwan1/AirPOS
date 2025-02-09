@@ -3,12 +3,12 @@ import { TapDirective } from '@shared/directives/tap.directive';
 import { OrderItem } from '@shared/types/order.model';
 
 @Component({
-  selector: 'app-category-item',
-  standalone: true,
-  imports: [TapDirective],
-  templateUrl: './category-item.component.html',
-  styleUrl: './category-item.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-category-item',
+    standalone: true,
+    imports: [TapDirective],
+    templateUrl: './category-item.component.html',
+    styleUrl: './category-item.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryItemComponent {
   @Input({ required: true }) item!: OrderItem

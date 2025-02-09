@@ -1,6 +1,7 @@
 @if (props) {
     <div class="heading">
         <h6>{{ props.item.name }}</h6>
+        <h6>{{ itemTotal() | currency }}</h6>    
     </div>
 
     @if (props.item.childItems.length) {

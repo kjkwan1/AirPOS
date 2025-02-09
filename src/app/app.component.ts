@@ -8,11 +8,11 @@ import { ModalComponent } from '@core/modal/modal.component';
 import { ModalService } from '@core/modal/modal.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, AsyncPipe, ModalComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, HeaderComponent, FooterComponent, AsyncPipe, ModalComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
 

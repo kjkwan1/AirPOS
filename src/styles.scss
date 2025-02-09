@@ -1,7 +1,5 @@
-// ==========================================================================
-// AirPOS Global Stylesheet
-// A mobile-first, lightweight styling foundation
-// ==========================================================================
+@use "sass:color";
+@use "sass:map";
 
 // 1. Theme Configuration
 // --------------------------------------------------------------------------
@@ -193,20 +191,20 @@ $theme-gradients: (
     light: (
         primary: linear-gradient(45deg, var(--color-primary-light) 0%, var(--color-primary) 50%, var(--color-primary-dark) 100%),
         secondary: linear-gradient(45deg, var(--color-secondary-light) 0%, var(--color-secondary) 50%, var(--color-secondary-dark) 100%),
-        accent: linear-gradient(45deg, lighten(#FF9F43, 10%) 0%, var(--color-accent) 100%),
-        success: linear-gradient(45deg, lighten(#28C76F, 10%) 0%, var(--color-success) 100%),
-        warning: linear-gradient(45deg, lighten(#FF9F43, 10%) 0%, var(--color-warning) 100%),
-        danger: linear-gradient(45deg, lighten(#EA5455, 10%) 0%, var(--color-danger) 100%),
+        accent: linear-gradient(45deg, color.scale(#FF9F43, $lightness: 10%) 0%, var(--color-accent) 100%),
+        success: linear-gradient(45deg, color.scale(#28C76F, $lightness: 10%) 0%, var(--color-success) 100%),
+        warning: linear-gradient(45deg, color.scale(#FF9F43, $lightness: 10%) 0%, var(--color-warning) 100%),
+        danger: linear-gradient(45deg, color.scale(#EA5455, $lightness: 10%) 0%, var(--color-danger) 100%),
         surface: linear-gradient(180deg, var(--color-surface) 80%, var(--color-background) 100%),
         surface-flip: linear-gradient(0deg, var(--color-surface) 80%, var(--color-background) 100%)
     ),
     dark: (
         primary: linear-gradient(45deg, var(--color-primary-light) 0%, var(--color-primary) 50%, var(--color-primary-dark) 100%),
         secondary: linear-gradient(45deg, var(--color-secondary-light) 0%, var(--color-secondary) 50%, var(--color-secondary-dark) 100%),
-        accent: linear-gradient(45deg, lighten(#FF9F43, 5%) 0%, var(--color-accent) 100%),
-        success: linear-gradient(45deg, lighten(#28C76F, 5%) 0%, var(--color-success) 100%),
-        warning: linear-gradient(45deg, lighten(#FF9F43, 5%) 0%, var(--color-warning) 100%),
-        danger: linear-gradient(45deg, lighten(#EA5455, 5%) 0%, var(--color-danger) 100%),
+        accent: linear-gradient(45deg, color.scale(#FF9F43, $lightness: 5%) 0%, var(--color-accent) 100%),
+        success: linear-gradient(45deg, color.scale(#28C76F, $lightness: 5%) 0%, var(--color-success) 100%),
+        warning: linear-gradient(45deg, color.scale(#FF9F43, $lightness: 5%) 0%, var(--color-warning) 100%),
+        danger: linear-gradient(45deg, color.scale(#EA5455, $lightness: 5%) 0%, var(--color-danger) 100%),
         surface: linear-gradient(180deg, var(--color-surface) 80%, var(--color-background) 100%),
         surface-flip: linear-gradient(0deg, var(--color-surface) 80%, var(--color-background) 100%),
     )
@@ -216,14 +214,14 @@ $theme-gradients: (
 @mixin theme-aware($property, $color-key, $selector: '&') {
     @each $theme-name, $theme-colors in $themes {
         .theme-#{$theme-name} #{$selector} {
-            #{$property}: map-get($theme-colors, $color-key);
+            #{$property}: map.get($theme-colors, $color-key);
         }
     }
 }
 
 @mixin mobile-first($breakpoint) {
     @if map-has-key($breakpoints, $breakpoint) {
-        @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @media (min-width: map.get($breakpoints, $breakpoint)) {
             @content;
         }
     }
@@ -253,7 +251,7 @@ html {
 
 body {
     font-family: $font-family-primary;
-    line-height: map-get($line-heights, normal);
+    line-height: map.get($line-heights, normal);
     @include theme-aware('background-color', 'background');
     @include theme-aware('color', 'text-primary');
 }
@@ -266,46 +264,46 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: map-get($font-weights, light);
-    line-height: map-get($line-heights, tight);
+    font-weight: map.get($font-weights, light);
+    line-height: map.get($line-heights, tight);
     margin: 1em 0;
 }
 
 h1 {
-    font-size: map-get($font-sizes, 3xl);
-    letter-spacing: map-get($spacings, 1);
+    font-size: map.get($font-sizes, 3xl);
+    letter-spacing: map.get($spacings, 1);
 }
 
 h2 {
-    font-size: map-get($font-sizes, 2xl);
-    letter-spacing: map-get($spacings, 1);
+    font-size: map.get($font-sizes, 2xl);
+    letter-spacing: map.get($spacings, 1);
 }
 
 h3 {
-    font-size: map-get($font-sizes, xl);
-    letter-spacing: map-get($spacings, 1);
+    font-size: map.get($font-sizes, xl);
+    letter-spacing: map.get($spacings, 1);
 }
 
 h4 {
-    font-size: map-get($font-sizes, lg);
-    letter-spacing: map-get($spacings, 1);
+    font-size: map.get($font-sizes, lg);
+    letter-spacing: map.get($spacings, 1);
 }
 
 h5 {
-    font-size: map-get($font-sizes, md);
-    letter-spacing: map-get($spacings, 1);
+    font-size: map.get($font-sizes, md);
+    letter-spacing: map.get($spacings, 1);
 }
 
 h6 {
-    font-size: map-get($font-sizes, base);
-    letter-spacing: map-get($spacings, 1);
-    line-height: map-get($line-heights, relaxed);
+    font-size: map.get($font-sizes, base);
+    letter-spacing: map.get($spacings, 1);
+    line-height: map.get($line-heights, relaxed);
 }
 
 p {
     margin: 0;
-    line-height: map-get($line-heights, relaxed);
-    font-size: map-get($font-sizes, xs);
+    line-height: map.get($line-heights, relaxed);
+    font-size: map.get($font-sizes, xs);
 }
 
 // 13. Utility Classes
@@ -345,15 +343,15 @@ body {
 
 // --------------------------------------------------------------------------
 :root {
-    @each $color-key, $color-value in map-get($themes, 'light') {
+    @each $color-key, $color-value in map.get($themes, 'light') {
         --color-#{$color-key}: #{$color-value};
     }
 
-    @each $shadow-key, $shadow-value in map-get($theme-shadows, 'light') {
+    @each $shadow-key, $shadow-value in map.get($theme-shadows, 'light') {
         --shadow-#{$shadow-key}: #{$shadow-value};
     }
 
-    @each $gradient-key, $gradient-value in map-get($theme-gradients, 'light') {
+    @each $gradient-key, $gradient-value in map.get($theme-gradients, 'light') {
         --gradient-#{$gradient-key}: #{$gradient-value};
     }
 
@@ -371,26 +369,26 @@ body {
 }
 
 .theme-dark {
-    @each $color-key, $color-value in map-get($themes, 'dark') {
+    @each $color-key, $color-value in map.get($themes, 'dark') {
         --color-#{$color-key}: #{$color-value};
     }
 
-    @each $gradient-key, $gradient-value in map-get($theme-gradients, 'dark') {
+    @each $gradient-key, $gradient-value in map.get($theme-gradients, 'dark') {
         --gradient-#{$gradient-key}: #{$gradient-value};
     }
     
-    @each $shadow-key, $shadow-value in map-get($theme-shadows, 'dark') {
+    @each $shadow-key, $shadow-value in map.get($theme-shadows, 'dark') {
         --shadow-#{$shadow-key}: #{$shadow-value};
     }
 }
 
-@each $gradient-key, $gradient-value in map-get($theme-gradients, 'light') {
+@each $gradient-key, $gradient-value in map.get($theme-gradients, 'light') {
     .bg-gradient-#{$gradient-key} {
         background: var(--gradient-#{$gradient-key});
     }
 }
 
-@each $shadow-key, $shadow-value in map-get($theme-shadows, 'light') {
+@each $shadow-key, $shadow-value in map.get($theme-shadows, 'light') {
     .shadow-#{$shadow-key} {
         box-shadow: var(--shadow-#{$shadow-key});
     }

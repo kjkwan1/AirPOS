@@ -18,13 +18,13 @@ export interface ModalButton {
     cssClass?: string;
 }
 
-export interface ModalView<TProps = any> {
+export interface ModalView<TProps = any, TResult = any> {
     props: TProps;
-    close: EventEmitter<any>;
+    close: EventEmitter<TResult>;
 }
 
-export abstract class ModalViewAbstract<TProps = any> implements ModalView<TProps> {
+export abstract class ModalViewAbstract<TProps = any, TResult = any> implements ModalView<TProps, TResult> {
     props: TProps = {} as TProps;
-    close = new EventEmitter<any>();
+    close = new EventEmitter<TResult>();
     params: ModalParams = {};
 }

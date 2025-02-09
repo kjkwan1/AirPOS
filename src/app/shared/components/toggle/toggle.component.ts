@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
 
 @Component({
-  selector: 'app-toggle',
-  standalone: true,
-  imports: [],
-  templateUrl: './toggle.component.html',
-  styleUrl: './toggle.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-toggle',
+    standalone: true,
+    imports: [],
+    templateUrl: './toggle.component.html',
+    styleUrl: './toggle.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleComponent implements OnInit {
   @Input({ required: false }) state: WritableSignal<boolean> = signal(false);
