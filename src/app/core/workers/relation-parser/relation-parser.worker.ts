@@ -48,7 +48,6 @@ const validateQuantityRule = (rule: QuantityRule): Result<string, Rule> =>
       : ok(rule);
 
 const validateCombinationRule = (state: MenuState, rule: CombinationRule): Result<string, Rule> => {
-  // Check required items exist
   const requiredItems = (rule.conditions.requires ?? [])
     .map(id => lookupItem(state, id));
 
@@ -56,7 +55,6 @@ const validateCombinationRule = (state: MenuState, rule: CombinationRule): Resul
     return error('One or more required items not found');
   }
 
-  // Check substitution groups
   if (rule.options?.substitutionGroups) {
     for (const group of rule.options.substitutionGroups) {
       const itemsExist = group.itemIds.map(id => lookupItem(state, id));
@@ -85,7 +83,6 @@ const processRules = (state: MenuState, rules: Array<Rule> | undefined): Result<
     ? sequence(rules.map(rule => validateRule(state, rule)))
     : ok([]);
 
-// Pure transformation functions
 const buildMenuItem = (state: MenuState, relation: ItemRelation): Result<string, OrderItem> => {
   const itemResult = lookupItem(state, relation.itemId);
   if (itemResult.type === 'error') return itemResult;
@@ -98,11 +95,11 @@ const buildMenuItem = (state: MenuState, relation: ItemRelation): Result<string,
 
   return flatMap(
     processRules(state, relation.rules?.childItemRules),
-    childItemRules => flatMap(
+    (childItemRules) => flatMap(
       processRules(state, relation.rules?.modifierRules),
-      modifierRules => flatMap(
+      (modifierRules) => flatMap(
         processRules(state, relation.rules?.itemRules),
-        itemRules => ok({
+        (itemRules) => ok({
           ...itemResult.value,
           childItems: childItems.flatMap(ci => ci.type === 'ok' ? [ci.value] : []),
           modifiers: modifiers.flatMap(m => m.type === 'ok' ? [m.value] : []),
@@ -153,7 +150,6 @@ const buildMenu = (state: MenuState, relations: MenuRelation): Result<string, Me
     )
   );
 
-// State initialization function
 const createMenuState = (data: InitialData): Result<string, MenuState> => {
   const items = new Map(data.items.map(item => [item.id, item]));
 

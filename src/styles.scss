@@ -58,7 +58,7 @@ $font-family-mono: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo
 
 // Font sizes using a modular scale (1.250 - Major Third)
 $font-sizes: (
-    xs: 0.64rem,
+    xs: 0.7rem,
     // 10.24px
     sm: 0.8rem,
     // 12.80px
@@ -96,7 +96,7 @@ $font-weights: (
 
 // 3. Spacing Configuration
 // --------------------------------------------------------------------------
-$spacing-unit: 0.25rem; // 4px
+$spacing-unit: 0.125rem; // 2px
 $spacings: (
     0: 0,
     1: $spacing-unit,
@@ -299,13 +299,13 @@ h5 {
 h6 {
     font-size: map-get($font-sizes, base);
     letter-spacing: map-get($spacings, 1);
+    line-height: map-get($line-heights, relaxed);
 }
 
 p {
     margin: 0;
-    line-height: map-get($line-heights, normal);
-    font-size: map-get($font-sizes, sm);
-    font-weight: map-get($font-weights, light);
+    line-height: map-get($line-heights, relaxed);
+    font-size: map-get($font-sizes, xs);
 }
 
 // 13. Utility Classes
@@ -363,6 +363,10 @@ body {
 
     @each $key, $value in $transitions {
         --transition-#{$key}: #{$value};
+    }
+
+    @each $key, $value in $font-sizes {
+        --font-size-#{$key}: #{$value};
     }
 }
 

@@ -33,7 +33,7 @@ export class OrderEntryComponent implements OnInit {
     )
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     const initializationParams: InitialData = {
       items: testItems,
       childItems: testChildItems,
@@ -42,23 +42,20 @@ export class OrderEntryComponent implements OnInit {
       menu: testMenu
     }
 
-    await this.menuService.initializeMenu(initializationParams);
+    this.menuService.initializeMenu(initializationParams);
   }
 
   onPreview(item: OrderItem) {
-    console.log('on preview with: ', item);
   }
 
   onSelected(item: OrderItem) {
-    console.log('on selected with: ', item);
     this.modalSerivce.open(ItemViewComponent, {
       props: {
         item
       },
-      close: new EventEmitter(),
       params: {
-        title: 'Item',
-      }
+        title: 'Item'
+      },
     })
   }
 }

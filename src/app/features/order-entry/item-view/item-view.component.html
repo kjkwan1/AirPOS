@@ -1,13 +1,14 @@
 @if (props) {
-    <h5>{{ props.item.name }}</h5>
-    <h6>{{ itemTotal() | currency }}</h6>
+    <div class="heading">
+        <h6>{{ props.item.name }}</h6>
+    </div>
 
     @if (props.item.childItems.length) {
         <h6>Child Items</h6>
         @for (item of props.item.childItems; track item.id) {
             <div class="item">
                 <div class="item__label">
-                    <p>{{ getQuantity(item.name) }}</p>
+                    <p>{{ getQuantity(item.name).qty }}</p>
                     <p>{{ item.name }}</p>
                 </div>
                 <div class="item__buttons">
@@ -23,7 +24,7 @@
         @for (mod of props.item.modifiers; track mod.id) {
             <div class="item">
                 <div class="item__label">
-                    <p>{{ getQuantity(mod.name)}}</p>
+                    <p>{{ getQuantity(mod.name).qty }}</p>
                     <p>{{ mod.name }}</p>
                 </div>
                 <div class="item__buttons">

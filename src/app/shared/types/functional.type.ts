@@ -64,7 +64,7 @@ export const tryCatch = <A>(fn: () => A): Result<unknown, A> => {
 export const unwrapResult = <E, A>(): OperatorFunction<Result<E, A>, A> =>
     rxMap(r => {
         if (r.type === 'ok') return r.value;
-        throw r.error; // Preserves error handling without forcing an operator.
+        throw r.error;
     });
 /**
  * Extracts values from Result<E, A>, but if it's an error, emits a fallback value instead of throwing.

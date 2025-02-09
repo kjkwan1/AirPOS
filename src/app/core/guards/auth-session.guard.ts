@@ -10,8 +10,7 @@ export class AuthSessionGuard implements CanActivate {
 
   canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (this.authService.isAuthenticated) {
-      this.router.navigate(['/order-entry']);
-      return false;
+      return true;
     }
 
     return this.router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });

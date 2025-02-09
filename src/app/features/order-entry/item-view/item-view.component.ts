@@ -1,7 +1,9 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, signal, SimpleChanges } from '@angular/core';
-import { ModalView, ModalViewAbstract } from '@core/modal/modal.type';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, signal, SimpleChanges, WritableSignal } from '@angular/core';
+import { ModalViewAbstract } from '@core/modal/modal.type';
 import { OrderItem } from '@shared/types/order.model';
+
+type QuantitySignalMap = Record<string, WritableSignal<{ qty: number; price: number }>>
 
 @Component({
   selector: 'app-item-view',
@@ -18,7 +20,7 @@ export class ItemViewComponent extends ModalViewAbstract {
 
   @Input() override close: EventEmitter<any> = new EventEmitter();
 
-  quantityMap?: Record<string, { qty: number, price: number }>;
+  quantityMap: QuantitySignalMap = {};
   itemTotal = signal(0);
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,37 +32,29 @@ export class ItemViewComponent extends ModalViewAbstract {
   }
 
   increment(key: string) {
-    if (!this.quantityMap) {
-      this.quantityMap = this.createQuantityMap(this.props.item);
-    }
-
-    this.quantityMap[key].qty++;
-    this.itemTotal.set(this.itemTotal() + this.quantityMap[key].price);
+    this.quantityMap[key].update((v) => ({...v, qty: v.qty + 1}));
+    this.itemTotal.set(this.itemTotal() + this.quantityMap[key]().price);
   }
 
   decrement(key: string) {
-    if (!this.quantityMap) {
-      this.quantityMap = this.createQuantityMap(this.props.item);
-    }
-
-    if (this.quantityMap[key].qty > 0) {
-      this.quantityMap[key].qty--;
-      this.itemTotal.set(this.itemTotal() - this.quantityMap[key].price);
+    if (this.quantityMap[key]().qty > 0) {
+      this.quantityMap[key].update((v) => ({...v, qty: v.qty - 1}));
+      this.itemTotal.set(this.itemTotal() - this.quantityMap[key]().price);
     }
   }
 
   getQuantity(key: string) {
-    return this.quantityMap?.[key].qty;
+    return this.quantityMap[key]();
   }
 
-  private createQuantityMap(item: OrderItem): Record<string, { qty: number, price: number }> {
+  private createQuantityMap(item: OrderItem): QuantitySignalMap {
     const childItemNames = item.childItems.map((i) => ({ name: i.name, price: i.price }));
     const modifierNames = item.modifiers.map((m) => ({ name: m.name, price: m.price }));
     const data = [...childItemNames, ...modifierNames];
 
     return data.reduce((acc, d) => {
-      acc[d.name] = { qty: 0, price: d.price };
+      acc[d.name] = signal({ qty: 0, price: d.price });
       return acc;
-    }, {} as Record<string, { qty: number, price: number }>)
+    }, {} as QuantitySignalMap)
   }
 }

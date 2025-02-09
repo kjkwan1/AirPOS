@@ -8,10 +8,11 @@ export interface ModalConfig<TProps = any> {
 export interface ModalParams {
     title?: string;
     subtitle?: string;
-    headerButtons?: ModalHeaderButton[];
+    headerButtons?: ModalButton[];
+    footerButtons?: ModalButton[];
 }
 
-export interface ModalHeaderButton {
+export interface ModalButton {
     label: string;
     action: () => void;
     cssClass?: string;

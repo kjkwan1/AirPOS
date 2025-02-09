@@ -12,10 +12,10 @@ export const routes: Routes = [
     {
         path: 'login',
         component: AuthenticationComponent,
-        canActivate: [AuthSessionGuard]
     },
     {
         path: 'order-entry',
         component: OrderEntryComponent,
+        canActivate: [AuthSessionGuard]
     }
 ];
