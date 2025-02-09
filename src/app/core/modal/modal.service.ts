@@ -15,7 +15,7 @@ export class ModalService {
     private appRef: ApplicationRef
   ) { }
 
-public open<View extends ModalViewAbstract, Payload>(view: Type<View>, config: View): Promise<Payload> {
+public open<View extends ModalViewAbstract, Payload>(view: Type<View>, config: Partial<View>): Promise<Payload> {
   return new Promise<Payload>((resolve) => {
     this.modalResolver = resolve;
     

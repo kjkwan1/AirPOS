@@ -4,3 +4,25 @@
     height: 100%;
     color: var(--color-text-primary);
 }
+
+.item {
+    display: flex;
+    justify-content: space-between;
+
+    &__label {
+        display: flex;
+        gap: 4px;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        &--button {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    }
+}

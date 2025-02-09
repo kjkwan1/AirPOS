@@ -23,7 +23,7 @@ export interface ModalView<TProps = any> {
 }
 
 export abstract class ModalViewAbstract<TProps = any> implements ModalView<TProps> {
-    props!: TProps;
+    props: TProps = {} as TProps;
     close = new EventEmitter<any>();
-    params!: ModalParams;
+    params: ModalParams = {};
 }
